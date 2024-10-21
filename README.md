@@ -1,4 +1,5 @@
 # Video Portal Management System
+This project is a simple Video Portal Management System built using PHP and MySQL. It allows an admin user to manage videos by adding, updating, and deleting video entries.
 
 ## Features
 **User Authentication**: Admin users can log in to manage the video portal.
