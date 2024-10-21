@@ -10,12 +10,11 @@
 - MySQL
 - A web server
 
-
 ## Installation
 **Create the Database**:
 - Open your MySQL client and run the following SQL commands to create the database and necessary tables.
   
-  CREATE DATABASE video_portal;
+CREATE DATABASE video_portal;
 
 USE video_portal;
 
