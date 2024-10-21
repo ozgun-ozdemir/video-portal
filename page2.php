@@ -8,16 +8,16 @@ if (!isset($_SESSION['username'])) {
 
 $conn = new mysqli('localhost', 'root', '', 'video_portal');
 if ($conn->connect_error) {
-    die("Bağlantı hatası: " . $conn->connect_error);
+    die("Connection error: " . $conn->connect_error);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
     $sql = "UPDATE video SET is_deleted=1 WHERE id=$delete_id";
     if ($conn->query($sql) === TRUE) {
-        $success_message = "Video başarıyla silindi.";
+        $success_message = "Video successfully deleted.";
     } else {
-        $error_message = "Silme hatası: " . $conn->error;
+        $error_message = "Deletion error: " . $conn->error;
     }
 }
 
@@ -30,11 +30,10 @@ function extractYouTubeID($url) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="tr">
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Video Yönetimi</title>
+    <title>Video Management</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -126,10 +125,10 @@ function extractYouTubeID($url) {
             background-color: #f2f2f2;
             color: black;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-            font-weight: bold 
+            font-weight: bold;
         }
 
-        .container .actions a:hover{
+        .container .actions a:hover {
             background-color: #dcdcdc;
         }
 
@@ -142,7 +141,7 @@ function extractYouTubeID($url) {
             display: inline-block;
             text-decoration: none;
             line-height: 10px;
-            font-weight: bold      
+            font-weight: bold;      
         }
 
         .container .actions button:hover {
@@ -155,11 +154,11 @@ function extractYouTubeID($url) {
     <div class="header">
         <h1>Video Admin</h1>
         <div class="add-video">
-            Yeni Video Ekle <a href="page3.php">+</a>
+            Add New Video <a href="page3.php">+</a>
         </div>
     </div>
     <div class="container">
-        <table >
+        <table>
             <?php while($row = $result->fetch_assoc()): ?>
                 <tr>
                     <td>
@@ -169,10 +168,10 @@ function extractYouTubeID($url) {
                     </td>
                     <td colspan="2">
                         <p><?php echo $row['description']; ?></p>
-                        <p class="date">Eklenme Tarihi: <?php echo date("d.m.Y", strtotime($row['date_added'])); ?></p>
+                        <p class="date">Date Added: <?php echo date("d.m.Y", strtotime($row['date_added'])); ?></p>
                     </td>
                     <td class="actions">
-                        <a href="page4.php?id=<?php echo $row['id']; ?>">Güncelle</a>
+                        <a href="page4.php?id=<?php echo $row['id']; ?>">Update</a>
                         <form method="POST" onsubmit="return confirmDelete();">
                             <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
                             <td class="actions">
@@ -186,7 +185,7 @@ function extractYouTubeID($url) {
     </div>
     <script>
         function confirmDelete() {
-            return confirm("Are you sure want to remove this video?");
+            return confirm("Are you sure you want to remove this video?");
         }
     </script>
 </body>

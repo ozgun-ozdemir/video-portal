@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 
     $conn = new mysqli('localhost', 'root', '', 'video_portal');
     if ($conn->connect_error) {
-        die("Bağlantı hatası: " . $conn->connect_error);
+        die("Connection error: " . $conn->connect_error);
     }
 
     $sql = "SELECT * FROM video WHERE id=$id";
@@ -27,24 +27,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
 
     $conn = new mysqli('localhost', 'root', '', 'video_portal');
     if ($conn->connect_error) {
-        die("Bağlantı hatası: " . $conn->connect_error);
+        die("Connection error: " . $conn->connect_error);
     }
 
     $sql = "UPDATE video SET link='$link', description='$description' WHERE id=$id";
     if ($conn->query($sql) === TRUE) {
         header("Location: page2.php");
     } else {
-        echo "Güncelleme hatası: " . $conn->error;
+        echo "Update error: " . $conn->error;
     }
 
     $conn->close();
 }
 ?>
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Video Güncelle</title>
+    <title>Update Video</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
             line-height: 10px;
             width: 10px;
             height: 10px;
-            font-weight: bold
+            font-weight: bold;
         }
 
         .cancel-button:hover {
@@ -173,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
             margin: 0 auto;
             margin-top: 30px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-            font-weight: bold
+            font-weight: bold;
         }
 
         .save-button:hover {
@@ -185,28 +185,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     <div class="header">
         <h1>Video Admin</h1>
         <div class="add-video">
-            Yeni Video Ekle <a href="page3.php">+</a>
+            Add New Video <a href="page3.php">+</a>
         </div>
     </div>
     <div class="main-content">
-        <h2>Video Güncelleme</h2>
+        <h2>Update Video</h2>
         <div class="container">
             <div class="cancel-container">
                 <a href="page2.php" class="cancel-button">X</a>
-                <div class="cancel-text">Vazgeç</div>
+                <div class="cancel-text">Cancel</div>
             </div>
             <div class="video-form">
                 <form method="POST">
                     <input type="hidden" name="id" value="<?php echo $video['id']; ?>">
                     <div class="form-group">
-                        <label for="link">Youtube Link</label>
+                        <label for="link">YouTube Link</label>
                         <input type="url" id="link" name="link" value="<?php echo $video['link']; ?>" required>
                     </div>
                     <div class="form-group">
-                        <label for="description">Video Tanımı</label>
-                        <input type="text" id="description" name="description" value="<?php echo $video['description']; ?>" required></input>
+                        <label for="description">Video Description</label>
+                        <input type="text" id="description" name="description" value="<?php echo $video['description']; ?>" required>
                     </div>
-                    <button type="submit" class="save-button">Kaydet</button>
+                    <button type="submit" class="save-button">Save</button>
                 </form>
             </div>
         </div>

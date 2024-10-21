@@ -13,24 +13,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn = new mysqli('localhost', 'root', '', 'video_portal');
     if ($conn->connect_error) {
-        die("Bağlantı hatası: " . $conn->connect_error);
+        die("Connection error: " . $conn->connect_error);
     }
 
     $sql = "INSERT INTO video (link, description, date_added, is_deleted) VALUES ('$link', '$description', '$date_added', 0)";
     if ($conn->query($sql) === TRUE) {
         header("Location: page2.php");
     } else {
-        echo "Ekleme hatası: " . $conn->error;
+        echo "Insertion error: " . $conn->error;
     }
 
     $conn->close();
 }
 ?>
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Yeni Video Ekle</title>
+    <title>Add New Video</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             line-height: 10px;
             width: 10px;
             height: 10px;
-            font-weight: bold
+            font-weight: bold;
         }
 
         .cancel-button:hover {
@@ -148,7 +148,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px;
             border: 2px solid black;
             box-sizing: border-box;
-            
         }
 
         .save-button {
@@ -161,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 0 auto;
             margin-top: 30px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-            font-weight: bold
+            font-weight: bold;
         }
 
         .save-button:hover {
@@ -173,27 +172,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="header">
         <h1>Video Admin</h1>
         <div class="add-video">
-            Yeni Video Ekle <a href="page3.php">+</a>
+            Add New Video <a href="page3.php">+</a>
         </div>
     </div>
     <div class="main-content">
-        <h2>Video Ekleme</h2>
+        <h2>Add Video</h2>
         <div class="container">
             <div class="cancel-container">
                 <a href="page2.php" class="cancel-button">X</a>
-                <div class="cancel-text">Vazgeç</div>
+                <div class="cancel-text">Cancel</div>
             </div>
             <div class="video-form">
                 <form method="POST">
                     <div class="form-group">
-                        <label for="link">Youtube Link</label>
+                        <label for="link">YouTube Link</label>
                         <input type="url" id="link" name="link" required>
                     </div>
                     <div class="form-group">
-                        <label for="description">Video Tanımı</label>
+                        <label for="description">Video Description</label>
                         <input id="description" name="description" required></input>
                     </div>
-                    <button type="submit" class="save-button">Kaydet</button>
+                    <button type="submit" class="save-button">Save</button>
                 </form>
             </div>
         </div>

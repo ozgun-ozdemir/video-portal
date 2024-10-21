@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn = new mysqli('localhost', 'root', '', 'video_portal');
     if ($conn->connect_error) {
-        die("Bağlantı hatası: " . $conn->connect_error);
+        die("Connection error: " . $conn->connect_error);
     }
 
     $sql = "SELECT * FROM admin WHERE username='$username' AND password='$password'";
@@ -20,18 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: page2.php");
         exit();
     } else {
-        $message = "Geçersiz kullanıcı adı veya şifre";
+        $message = "Invalid username or password";
     }
     $conn->close();
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giriş</title>
+    <title>Login</title>
     <style>
         body {
             display: flex;
@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border: 2px solid black;
         }
 
-        .form-group button{
+        .form-group button {
             padding: 10px 20px;
             border: 2px solid black;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
@@ -104,11 +104,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 50px auto 0;
             display: block;
             cursor: pointer;
-            font-weight: bold
-            
+            font-weight: bold;
         }
 
-        .form-group button:hover  {
+        .form-group button:hover {
             background-color: #dcdcdc; 
         }
 
@@ -124,24 +123,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Video Admin</h1>
     </div>
     <div class="container">
-        <h2>Giriş</h2>
+        <h2>Login</h2>
         <form method="POST">
             <div class="form-group">
-                <label for="username">Kullanıcı Adı</label>
+                <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <label for="password">Şifre</label>
+                <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
             <div class="form-group">
-                <button type="submit">Giriş Yap</button>
+                <button type="submit">Login</button>
             </div>
             <?php
-        if (!empty($message)) {
-            echo "<div class='alert'>$message</div>";
-        }
-        ?>
+            if (!empty($message)) {
+                echo "<div class='alert'>$message</div>";
+            }
+            ?>
         </form>
     </div>
 </body>
